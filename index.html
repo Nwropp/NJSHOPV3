@@ -2010,4 +2010,39 @@ onValue(queueRef, (snapshot) => {
 });
 </script>
 </body>
+  <script>
+function showPage(page) {
+  // ซ่อนทุกหน้า
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+
+  // แสดงหน้าที่เลือก
+  document.getElementById("page-" + page).classList.add("active");
+
+  // ปรับ active ของเมนูด้านบน
+  document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+  const nl = document.getElementById("nl-" + page);
+  if (nl) nl.classList.add("active");
+
+  // ปิดเมนูมือถือ
+  closeMenu();
+
+  // แสดงปุ่มย้อนกลับถ้าไม่ใช่หน้า Home
+  document.querySelectorAll(".page-back-btn").forEach(btn => {
+    btn.style.display = page === "home" ? "none" : "flex";
+  });
+}
+
+function goBack() {
+  showPage("home");
+}
+
+function toggleMenu() {
+  document.getElementById("mobile-menu").classList.toggle("open");
+}
+
+function closeMenu() {
+  document.getElementById("mobile-menu").classList.remove("open");
+}
+  </script>
+</body>
 </html>
