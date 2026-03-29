@@ -2221,5 +2221,63 @@ updateBottomNav('home');
 setTimeout(initScrollReveal,400);
 
 </script>
+  <!-- ===== Firebase (เชื่อมฐานข้อมูล) ===== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDfWFjkjlF-1c9oPB81u7MIyt124SNlZsM",
+  authDomain: "njshop-296fd.firebaseapp.com",
+  databaseURL: "https://njshop-296fd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "njshop-296fd",
+  storageBucket: "njshop-296fd.firebasestorage.app",
+  messagingSenderId: "891861728280",
+  appId: "1:891861728280:web:5eb913287f02dda174976d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ===== ดึงข้อมูลคิว =====
+const queueRef = ref(db, "queue");
+
+onValue(queueRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log("Queue:", data);
+
+  // 🔥 เอาไปแสดงในหน้าเว็บ
+  const box = document.getElementById("queue-list");
+  if (!box) return;
+
+  box.innerHTML = "";
+
+  if (!data) {
+    box.innerHTML = '<div class="queue-empty">ยังไม่มีคิว</div>';
+    return;
+  }
+
+  Object.keys(data).forEach((key, index) => {
+    const item = data[key];
+
+    box.innerHTML += `
+      <div class="queue-item card">
+        <div class="q-num">#${index + 1}</div>
+        <div class="q-info">
+          <h4>${item.name || "ไม่ระบุชื่อ"}</h4>
+          <p>${item.service || "-"}</p>
+        </div>
+        <div class="q-badge ${
+          item.status === "done" ? "q-done" :
+          item.status === "doing" ? "q-progress" :
+          "q-waiting"
+        }">
+          ${item.status || "waiting"}
+        </div>
+      </div>
+    `;
+  });
+});
+    </script>
 </body>
 </html>
