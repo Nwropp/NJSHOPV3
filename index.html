@@ -1204,7 +1204,7 @@ function sendEmailNotif(data) {
 // ─── Discord Webhook ────────────────────────────────────────
 // วิธีสร้าง Webhook URL: ตั้งค่าเซิร์ฟเวอร์ Discord > Integrations > Webhooks > New Webhook > Copy Webhook URL
 // แล้วเอามาวางแทนค่าว่างด้านล่างนี้ (ใส่ใน '' ระหว่างเครื่องหมายคำพูด)
-const DISCORD_WEBHOOK_URL = '';
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1517468606579998790/bHIQTQrETirFKnWLy-DQsDx5QIRFsZuDZPI9fVSl229j9UThVmh88_8r--y0H_zTMuQm';
 
 function sendDiscordNotif(data){
   if(!DISCORD_WEBHOOK_URL) return Promise.resolve(); // ยังไม่ได้ตั้งค่า webhook — ข้ามไปเฉยๆ ไม่ error
